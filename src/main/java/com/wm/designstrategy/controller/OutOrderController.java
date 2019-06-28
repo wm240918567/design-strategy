@@ -6,15 +6,14 @@ import com.wm.designstrategy.dto.OutStockDetails;
 import com.wm.designstrategy.service.strategy.CreateStrategyContext;
 import com.wm.designstrategy.service.strategy.OutStockStrategyContext;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author 王锰
  * @date 15:54 2019/6/26
  */
 @RestController
+@RequestMapping("/out")
 public class OutOrderController {
 
     private final CreateStrategyContext createStrategyContext;
@@ -27,15 +26,15 @@ public class OutOrderController {
         this.outStockStrategyContext = outStockStrategyContext;
     }
 
-    @PostMapping("/out/create/")
-    public boolean outCreate(@RequestBody OutOrderCreate order) {
-        return createStrategyContext.create(order);
+    @PostMapping("/create/{type}")
+    public boolean outCreate(@RequestBody OutOrderCreate order, @PathVariable("type")String type) {
+        return createStrategyContext.create(order,type);
     }
 
 
-    @PostMapping("/out/stock")
-    public boolean outStock(@RequestBody OutStockDetails details){
-        return outStockStrategyContext.out(details);
+    @PostMapping("/stock/{type}")
+    public boolean outStock(@RequestBody OutStockDetails details,@PathVariable("type")String type){
+        return outStockStrategyContext.out(details,type);
     }
 
 }

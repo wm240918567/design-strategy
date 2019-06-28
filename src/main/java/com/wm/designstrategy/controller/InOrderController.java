@@ -5,15 +5,14 @@ import com.wm.designstrategy.dto.InStockDetails;
 import com.wm.designstrategy.service.strategy.CreateStrategyContext;
 import com.wm.designstrategy.service.strategy.InStockStrategyContext;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author 王锰
  * @date 14:38 2019/6/27
  */
 @RestController
+@RequestMapping("/in")
 public class InOrderController {
 
     private final CreateStrategyContext createStrategyContext;
@@ -26,14 +25,14 @@ public class InOrderController {
         this.inStockStrategyContext = inStockStrategyContext;
     }
 
-    @PostMapping("/in/create/")
-    public boolean inCreate(@RequestBody InOrderCreate order) {
-        return createStrategyContext.create(order);
+    @PostMapping("/create/{type}")
+    public boolean inCreate(@RequestBody InOrderCreate order, @PathVariable("type")String type) {
+        return createStrategyContext.create(order,type);
     }
 
-    @PostMapping("/in/stock")
-    public boolean instock(@RequestBody InStockDetails details){
-        return inStockStrategyContext.in(details);
+    @PostMapping("/stock/{type}")
+    public boolean instock(@RequestBody InStockDetails details,@PathVariable("type")String type){
+        return inStockStrategyContext.in(details,type);
     }
 
 

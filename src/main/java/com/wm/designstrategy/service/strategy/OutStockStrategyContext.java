@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -23,9 +24,9 @@ public class OutStockStrategyContext {
         map.forEach(this.map::put);
     }
 
-    public <T> boolean out(T details){
-        String name = StrategyUtils.getStrategy(details);
-        return map.get(name).out(details);
+    public <T> boolean out(T details,String type){
+//        String type = StrategyUtils.getStrategy(details);
+        return Optional.ofNullable(map.get(type)).orElseThrow(()->new RuntimeException("错误的业务类型")).out(details);
     }
 
 }

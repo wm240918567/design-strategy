@@ -9,12 +9,12 @@ import org.springframework.stereotype.Service;
  * @date 15:31 2019/6/26
  */
 @Slf4j
-@Service
+@Service("b2bOutStock")
 public class B2bOutStockStrategy implements OutStockStrategy<OutStockDetails> {
 
     @Override
     public boolean out(OutStockDetails details) {
-        log.info("B2B的出库业务处理:{}", details);
+        log.info("b2bOutStock--出库操作");
         return true
                 ;
     }

@@ -9,12 +9,29 @@ import org.springframework.stereotype.Service;
  * @date 15:30 2019/6/26
  */
 @Slf4j
-@Service
-public class B2cInCreateStrategy implements CreateStrategy<InOrderCreate> {
+@Service("b2cInCreate")
+public class B2cInCreateStrategy extends AbstractCreateStrategy<InOrderCreate> implements CreateStrategy<InOrderCreate> {
 
     @Override
-    public boolean create(InOrderCreate inOrder) {
-        log.info("B2C入库创建的业务处理:{}", inOrder);
+    protected boolean checkParamter(InOrderCreate dto) {
+        log.info("b2cInCreate--校验数据");
         return true;
+    }
+
+    @Override
+    protected boolean save(InOrderCreate dto) {
+        log.info("b2cInCreate--主表保存");
+        return true;
+    }
+
+    @Override
+    protected boolean saveAfter(InOrderCreate dto) {
+        log.info("b2cInCreate--主表保存后处理");
+        return true;
+    }
+
+    @Override
+    protected boolean sendOther() {
+        return false;
     }
 }

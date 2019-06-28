@@ -9,12 +9,12 @@ import org.springframework.stereotype.Service;
  * @date 15:32 2019/6/26
  */
 @Slf4j
-@Service
+@Service("b2cInStock")
 public class B2cInStockStrategy implements InStockStrategy<InStockDetails> {
 
     @Override
     public boolean in(InStockDetails details) {
-        log.info("B2C入库操作业务处理:{}", details);
+        log.info("b2cInStock--入库操作");
         return true;
     }
 }
